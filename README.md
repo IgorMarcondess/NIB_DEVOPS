@@ -27,7 +27,7 @@
 <h2 align="left"> 📹 Link do vídeo</h2>
 
 ```bash
-https://www.youtube.com/watch?v=4L5RpHhTqTg
+https://www.youtube.com/watch?v=choDSYRZ3cM
 ```
 <h3 align="left"> Desenho - Pipeline</h3>
 <img src="Imagens/Devops - Sprint 4.jpg">
