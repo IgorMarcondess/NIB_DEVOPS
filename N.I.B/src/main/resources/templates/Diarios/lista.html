@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Diários</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .cabecalho {
+            background-color: #0066ff;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        .cabecalho__menu {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .cabecalho__menu__link {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .cabecalho__menu__link:hover {
+            text-decoration: underline;
+        }
+
+        .titulo {
+            color: #757575;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .style-tabela table {
+            float: left;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+            border-right: 0;
+            font-size: 0.8em;
+            width: 100%;
+        }
+
+        .style-tabela table tr td {
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-top: 0;
+            border-left: 0;
+            text-align: center;
+        }
+
+        .style-tabela table td.top {
+            background-color: #003EA6;
+            color: #fff;
+            font-size: 1.2em;
+        }
+
+        .style-tabela table td.top.center {
+            text-align: center;
+        }
+
+        .style-tabela tbody tr {
+            background-color: #fff;
+            color: #666;
+        }
+
+        .style-tabela tbody tr:hover {
+            background-color: #f4f4f4;
+            color: #00bcc4;
+        }
+
+        .style-tabela tbody tr td .editar {
+            color: #00d549;
+            font-size: 1.2em;
+            font-weight: bold;
+            display: inline;
+            text-decoration: none;
+        }
+
+        .style-tabela tbody tr td .deletar {
+            color: #bf303c;
+            font-size: 1.2em;
+            font-weight: bold;
+            display: inline;
+            text-decoration: none;
+        }
+
+        .button-form {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            background-color: #39f;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<header class="cabecalho">
+    <nav class="cabecalho__menu">
+        <a class="cabecalho__menu__link" href="/usuario">Usuários</a>
+        <a class="cabecalho__menu__link" href="/consultas">Consultas</a>
+        <a class="cabecalho__menu__link" href="/profissional">Profissionais</a>
+        <a class="cabecalho__menu__link" href="/diarios">Registros diários dos usuários</a>
+    </nav>
+</header>
+<h2 class="titulo">Lista de Diários</h2>
+<div th:if="${sucesso}" class="alert alert-success">
+    <p th:text="${sucesso}"></p>
+</div>
+<div th:if="${erro}" class="alert alert-danger">
+    <p th:text="${erro}"></p>
+</div>
+<div class="style-tabela">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td class="top center"><strong>Data do Registro</strong></td>
+            <td class="top center"><strong>Usuário</strong></td>
+            <td class="top center"><strong>Qtd de escovações</strong></td>
+            <td class="top center"><strong>Qtd de uso do fio dental</strong></td>
+            <td class="top center"><strong>Qtd de uso do enxaguante</strong></td>
+            <td class="top center"><strong>Sintomas do dia</strong></td>
+            <td class="top center" colspan="3" width="1"><strong>Ações</strong></td>
+        </tr>
+        </tbody>
+        <tbody>
+        <tr th:each="diario : ${diarios}">
+            <td align="center" th:text="${diario.dataRegistro}"></td>
+            <td align="center" th:text="${diario.usuario.cpfUser}"></td>
+            <td align="center" th:text="${diario.escovacaoDiario}"></td>
+            <td align="center" th:text="${diario.usoFioDiario}"></td>
+            <td align="center" th:text="${diario.usoEnxaguanteDiario}"></td>
+            <td align="center" th:text="${diario.sintomaDiario}"></td>
+            <td align="center">
+                <a th:href="@{/diarios/{id}(id=${diario.id})}" class="editar fas fa-search" title="Visualizar"></a>
+            </td>
+            <td align="center">
+                <a th:href="@{/diarios/editar/{id}(id=${diario.id})}" class="editar fa fa-edit" title="Editar"></a>
+            </td>
+            <td align="center">
+                <a th:href="@{/diarios/deletar/{id}(id=${diario.id})}"
+                   class="deletar fa fa-times-circle" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir?');"></a>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="9" align="center">
+                <a th:href="@{/diarios/novo}" class="button-form borda-inversa">Novo Diário</a>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+</body>
+</html>

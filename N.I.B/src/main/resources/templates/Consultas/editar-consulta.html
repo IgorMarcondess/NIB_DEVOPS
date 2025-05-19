@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Consulta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .cabecalho {
+            background-color: #0066ff;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        .cabecalho__menu {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .cabecalho__menu__link {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .cabecalho__menu__link:hover {
+            text-decoration: underline;
+        }
+        .titulo {
+            color: #757575;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .formulario {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            overflow: hidden;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .label {
+            float: left;
+            width: 100%;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-bordas {
+            font: 15px/24px "Lato", Arial, sans-serif;
+            color: #333;
+            width: 100%;
+            box-sizing: border-box;
+            letter-spacing: 1px;
+            border: 1px solid #ccc;
+            padding: 7px 14px 9px;
+            transition: 0.4s;
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .button-form {
+            background-color: #39f;
+            padding: 10px 20px;
+            color: #fff;
+            font-size: 1.2em;
+            border: none;
+            cursor: pointer;
+            width: 48%;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .botao-voltar {
+            background-color: #ccc;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<header class="cabecalho">
+    <nav class="cabecalho__menu">
+        <a class="cabecalho__menu__link" href="/usuario">Usuários</a>
+        <a class="cabecalho__menu__link" href="/consultas">Consultas</a>
+        <a class="cabecalho__menu__link" href="/profissional">Profissionais</a>
+        <a class="cabecalho__menu__link" href="/diarios">Registros diários dos usuários</a>
+    </nav>
+</header>
+
+<h2 class="titulo">Editar Consulta</h2>
+<div th:if="${sucesso}" class="alert alert-success">
+    <p th:text="${sucesso}"></p>
+</div>
+<div th:if="${erro}" class="alert alert-danger">
+    <p th:text="${erro}"></p>
+</div>
+
+<form class="formulario" th:action="@{/consultas/editar}" method="post" th:object="${consulta}">
+    <input type="hidden" th:field="*{id}" />
+
+    <label class="label">
+        <input type="date" class="input-bordas" th:field="*{dataConsulta}" required>
+    </label>
+
+    <label class="label">
+        <textarea class="input-bordas" placeholder="Descrição da Consulta" th:field="*{descricaoConsulta}" required></textarea>
+    </label>
+
+    <div class="botoes">
+        <a href="/consultas" class="button-form botao-voltar">Voltar</a>
+        <button class="button-form" type="submit">Atualizar</button>
+    </div>
+</form>
+</body>
+</html>
